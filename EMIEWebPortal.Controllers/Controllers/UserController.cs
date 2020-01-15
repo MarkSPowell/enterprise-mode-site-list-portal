@@ -645,7 +645,10 @@ namespace EMIEWebPortal.Controllers
         /// <returns>result of insert operation</returns>
         private int CreateNewUser(UserMapping user)
         {
-            var logonId = user.User.Email.Split('@');
+            //Updated to match what's used in the other controllers. This previously only worked if the samAccountName and email happened to be the same. 
+            var logonId = User.Identity.Name;
+            var Index = logonId.Split('\\');
+            logonId = Index[1];
 
             User newUser = new User();
             newUser.UserName = user.User.UserName;
